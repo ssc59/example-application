@@ -22,12 +22,14 @@ jobs:
           username: ${{ secrets.REGISTRY_USER }}
           password: ${{ secrets.REGISTRY_TOKEN }}
 
-      - name: Build and Push Docker Image
+      - name: Build and Push 
         uses: docker/build-push-action@v5
         with:
           context: .
           push: true
           tags: docker.io/${{ secrets.REGISTRY_USER }}/example-application:${{ env.TAG_NAME }}
+          build-args: |
+            APP_VERSION=${{ env.TAG_NAME }}
 
   trigger-deployment-update:
     runs-on: ubuntu-latest
