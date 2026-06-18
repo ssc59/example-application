@@ -1,9 +1,12 @@
+import os
 from flask import Flask
 
 app = Flask(__name__)
 
-@app.route('/')
-def index():
-    return 'Hello Argo CD v1.0!'
+version = os.getenv("APP_VERSION", "unknown")
 
-app.run(host='0.0.0.0', port=8080)
+@app.route("/")
+def index():
+    return f"Hello Argo CD {version}!"
+
+app.run(host="0.0.0.0", port=8080)
